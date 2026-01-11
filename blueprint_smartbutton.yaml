@@ -6,7 +6,7 @@ blueprint:
   input:
     esphome_device_name:
       name: ESPHome Gerätename (devicename)
-      description: Gib hier exakt den Namen ein (z.B. s-thara-t-52f29c).
+      description: Gib hier exakt den Namen ein (z.B. dw-button-12a34b).
       default: ""
     
     action_single:
