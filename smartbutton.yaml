@@ -18,7 +18,10 @@ wifi:
     password: "fallback_pass"
 
 api:
+
 ota:
+  - esphome
+
 logger:
 
 binary_sensor:
