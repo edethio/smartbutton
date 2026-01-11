@@ -1,5 +1,5 @@
 blueprint:
-  name: ESPHome Smart Button (Fixed)
+  name: ESPHome Smart Button (v2)
   description: >
     Automatisierung für den ESPHome Smart Button mit Single, Double, Triple und Long Press.
   domain: automation
