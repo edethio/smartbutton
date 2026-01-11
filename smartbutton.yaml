@@ -53,7 +53,7 @@ binary_sensor:
               event: esphome.button_action
               data:
                 action: triple_click
-                device_id: !lambda 'return id(main_button).get_object_id();'
+                device_id: !lambda 'return App.get_name();'
 
       # Double Click
       - timing:
@@ -67,7 +67,7 @@ binary_sensor:
               event: esphome.button_action
               data:
                 action: double_click
-                device_id: !lambda 'return id(main_button).get_object_id();'
+                device_id: !lambda 'return App.get_name();'
 
       # Single Click
       - timing:
@@ -79,7 +79,7 @@ binary_sensor:
               event: esphome.button_action
               data:
                 action: single_click
-                device_id: !lambda 'return id(main_button).get_object_id();'
+                device_id: !lambda 'return App.get_name();'
 
       # Long Press
       - timing:
@@ -90,4 +90,4 @@ binary_sensor:
               event: esphome.button_action
               data:
                 action: long_press
-                device_id: !lambda 'return id(main_button).get_object_id();'
+                device_id: !lambda 'return App.get_name();'
