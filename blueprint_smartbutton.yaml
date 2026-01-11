@@ -1,15 +1,12 @@
 blueprint:
-  name: ESPHome Smart Button (Custom Event)
+  name: ESPHome Smart Button (Fixed)
   description: >
     Automatisierung für den ESPHome Smart Button mit Single, Double, Triple und Long Press.
-    
-    WICHTIG: Funktioniert nur, wenn im ESPHome Code das Event 'esphome.button_action' 
-    gesendet wird und die 'device_id' auf '!lambda return App.get_name();' gesetzt ist.
   domain: automation
   input:
     esphome_device_name:
       name: ESPHome Gerätename (devicename)
-      description: Gib hier exakt den Namen ein, den du in der YAML unter 'devicename' definiert hast (z.B. wz-taster).
+      description: Gib hier exakt den Namen ein (z.B. s-thara-t-52f29c).
       default: ""
     
     action_single:
@@ -44,9 +41,15 @@ trigger:
   - platform: event
     event_type: esphome.button_action
 
+# HIER WAR DER FEHLER: Wir müssen den Input in eine Variable mappen
+variables:
+  # Wir holen den Wert aus dem Input und speichern ihn in einer Variable für das Template
+  target_device: !input esphome_device_name
+
 condition:
   - condition: template
-    value_template: "{{ trigger.event.data.device_id == esphome_device_name }}"
+    # Jetzt vergleichen wir mit der Variable 'target_device' statt dem Input direkt
+    value_template: "{{ trigger.event.data.device_id == target_device }}"
 
 action:
   - choose:
