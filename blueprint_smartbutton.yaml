@@ -1,0 +1,75 @@
+blueprint:
+  name: ESPHome Smart Button (Custom Event)
+  description: >
+    Automatisierung für den ESPHome Smart Button mit Single, Double, Triple und Long Press.
+    
+    WICHTIG: Funktioniert nur, wenn im ESPHome Code das Event 'esphome.button_action' 
+    gesendet wird und die 'device_id' auf '!lambda return App.get_name();' gesetzt ist.
+  domain: automation
+  input:
+    esphome_device_name:
+      name: ESPHome Gerätename (devicename)
+      description: Gib hier exakt den Namen ein, den du in der YAML unter 'devicename' definiert hast (z.B. wz-taster).
+      default: ""
+    
+    action_single:
+      name: Einzelklick
+      description: Aktion bei einfachem Klick
+      default: []
+      selector:
+        action: {}
+
+    action_double:
+      name: Doppelklick
+      description: Aktion bei doppeltem Klick
+      default: []
+      selector:
+        action: {}
+
+    action_triple:
+      name: Dreifachklick
+      description: Aktion bei dreifachem Klick
+      default: []
+      selector:
+        action: {}
+
+    action_long:
+      name: Langer Druck
+      description: Aktion bei langem Druck (>1s)
+      default: []
+      selector:
+        action: {}
+
+trigger:
+  - platform: event
+    event_type: esphome.button_action
+
+condition:
+  - condition: template
+    value_template: "{{ trigger.event.data.device_id == esphome_device_name }}"
+
+action:
+  - choose:
+      # Single Click
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.action == 'single_click' }}"
+        sequence: !input action_single
+      
+      # Double Click
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.action == 'double_click' }}"
+        sequence: !input action_double
+
+      # Triple Click
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.action == 'triple_click' }}"
+        sequence: !input action_triple
+
+      # Long Press
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.action == 'long_press' }}"
+        sequence: !input action_long
