@@ -7,7 +7,7 @@ esphome:
   name: ${devicename}
   name_add_mac_suffix: true
   project:
-    name: "user.generic_button"
+    name: "sme.long_press_button"
     version: "1.0"
 
 wifi:
